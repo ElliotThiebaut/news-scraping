@@ -1,3 +1,4 @@
+import csv
 import requests
 from bs4 import BeautifulSoup
 
@@ -15,5 +16,10 @@ for title in titles_data:
 for description in descriptions_data:
     descriptions.append(description.string)
 
-print(titles)
-print(descriptions)
+header = ['title', 'description']
+
+with open('data.csv', 'w') as csv_file:
+    writer = csv.writer(csv_file, delimiter=',')
+    writer.writerow(header)
+    for title, description in zip(titles, descriptions):
+        writer.writerow([title, description])
